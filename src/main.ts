@@ -16,6 +16,8 @@ domAlternativas.addEventListener("click", ev => {
     target.classList.add("checked")
 })
 
+
+
 cdcqrcodereader.addEventListener("cdc-qrcodereader-read", async evt => {
     const ev = <CDCQRCodeReaderEvent>evt
     // const dadosPergunta = await fetch(urlPerguntas)
