@@ -1,0 +1,11 @@
+{
+    "pergunta": "qual o nome da mãe do Prof. Daniel Varela?",
+    "alternativas": { 
+       "a" :"Dirce Andrade",
+       "b" :"Inadina Ribeiro Andrade",
+       "c" :"Luzia Antonia",
+       "d" :"Delminda Inês",
+       "e" :"Marilene Antunes"
+    },
+    "resposta correta": "d" 
+}

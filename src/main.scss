@@ -1,8 +1,60 @@
+$primaryColor: #6c3dd9;
+
 * {
     box-sizing: border-box;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 700px;
+    // background-color: $primaryColor;
 }
 
 body {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+}
+
+div.qrcode {
+    display: flex;
+    justify-content: center;
+    background: $primaryColor;
+    height: 50vh;
+    width: 100%;
+
+}
+
+div.pergunta {
+    background-color: #FFFFFF;
+    border-radius: 30px 30px 0 0;
+    transform: translateY(-40px);
+    padding: 5vw;
+    min-height: 300px;
+
+    h1 {
+        font-size: 8vw;
+    }
+
+    .alternativas {
+        label {
+            display: block;
+            font-size: 5vw;
+            padding: 1vw;
+            transition: .3s;
+
+            input {
+                display: none;
+            }
+
+            &.checked {
+                background-color: $primaryColor;
+                color: #FFFFFF;
+                border-radius: 5px;
+                padding: 2vw;
+            }
+        }
+    }
 }
