@@ -21,10 +21,14 @@ body {
 div.qrcode {
     display: flex;
     justify-content: center;
+    align-items: center;
     background: $primaryColor;
     height: 50vh;
     width: 100%;
 
+    cdc-qrcodereader {
+        --size: 40vh
+    }
 }
 
 div.pergunta {
@@ -33,6 +37,14 @@ div.pergunta {
     transform: translateY(-40px);
     padding: 5vw;
     min-height: 300px;
+    position: relative;
+    overflow: hidden;
+
+    .overlay {
+        background-color: black;
+        position: absolute;
+        inset: 0;
+    }
 
     h1 {
         font-size: 8vw;

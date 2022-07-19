@@ -17,11 +17,9 @@ domAlternativas.addEventListener("click", ev => {
 })
 
 
-
 cdcqrcodereader.addEventListener("cdc-qrcodereader-read", async evt => {
     const ev = <CDCQRCodeReaderEvent>evt
     // const dadosPergunta = await fetch(urlPerguntas)
-
     domTitle.innerHTML = dadosPergunta.pergunta
     let alternativasHTML = ""
     Object.entries(dadosPergunta.alternativas).forEach(([chave, valor], idx) => {
@@ -33,9 +31,6 @@ cdcqrcodereader.addEventListener("cdc-qrcodereader-read", async evt => {
         `
     })
     domAlternativas.innerHTML = alternativasHTML
-
-
-
-    console.log(ev.data)
-    ev.destroy()
+    // console.log(ev.data)
+    ev.pause()
 })

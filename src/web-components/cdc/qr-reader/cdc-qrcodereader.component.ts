@@ -4,9 +4,10 @@ import template from "bundle-text:./cdc-qrcodereader.template.html"
 export class CDCQRCodeReaderEvent extends CustomEvent<{ data: string, destroy: Function}> {    
     constructor(
         type: string,
-        public data,
+        public data: string,
         public cornerPoints: QrScanner.Point[],
-        public destroy,
+        public destroy: Function,
+        public pause: Function,
     ) {
         super(type)
     }
@@ -14,14 +15,16 @@ export class CDCQRCodeReaderEvent extends CustomEvent<{ data: string, destroy: F
     
 export class CDCQRCodeReader extends HTMLElement {
     #root = this.attachShadow({ mode: "closed" })
+    #main: HTMLElement
     #select: HTMLSelectElement
-    #qrScanner: QrScanner | null
+    #qrScanner?: QrScanner | null
     #targetCanvas: HTMLCanvasElement
     #targetCanvasContext: CanvasRenderingContext2D
     
     constructor() {
         super()
         this.#root.innerHTML = template
+        this.#main = <HTMLSelectElement>this.#root.querySelector("main") 
         this.#select = <HTMLSelectElement>this.#root.querySelector("select") 
         this.#targetCanvas = <HTMLCanvasElement>this.#root.querySelector("canvas")
         this.#targetCanvasContext = <CanvasRenderingContext2D>this.#targetCanvas.getContext("2d")
@@ -36,6 +39,7 @@ export class CDCQRCodeReader extends HTMLElement {
     }
     
     #onSelectCam(ev: Event) {
+        this.#main.classList.add("initialized")
         const video = document.createElement("video")
         const settings = { preferredCamera: this.#select.value }
         this.#qrScanner = new QrScanner(video, res => this.#onQrReaded(res), settings)
@@ -55,10 +59,20 @@ export class CDCQRCodeReader extends HTMLElement {
     }
     
     #onQrReaded(result: QrScanner.ScanResult) {
-        const event = new CDCQRCodeReaderEvent("cdc-qrcodereader-read", result.data, result.cornerPoints, this.#destroy.bind(this))
+        const event = new CDCQRCodeReaderEvent(
+            "cdc-qrcodereader-read", 
+            result.data, 
+            result.cornerPoints, 
+            this.#destroy.bind(this),
+            this.#pause.bind(this),
+        )
         this.#root.host.dispatchEvent(event)
     }
     
+    #pause() {
+        this.#qrScanner?.pause()
+    }
+
     #destroy() {
         this.#qrScanner?.stop()
         this.#qrScanner = null

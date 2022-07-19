@@ -3,26 +3,27 @@
 }
 
 :host {
+    --size: 400px;
+    // 
     display: block;
-    background: red;
     padding: 2px;
-    width: 70vmin;
-    height: 70vmin;
+    width: var(--size);
+    height: var(--size);
 }
 
 main {
     display: block;
-    background: black;
-    width: 70vmin;
-    height: 70vmin;
+    width: var(--size);
+    height: var(--size);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     canvas {
-        border: 1px solid red;
         width: 90%;
+        display: none;
+        border-radius: 20px;
     }
 
     select {
@@ -30,5 +31,15 @@ main {
         width: 90%;
         font-size: 2em;
         text-align: center;
+    }
+
+    &.initialized {
+        canvas {
+            display: block;
+        }
+
+        select {
+            display: none;
+        }
     }
 }
