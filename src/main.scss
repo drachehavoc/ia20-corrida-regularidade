@@ -10,6 +10,7 @@ body {
     margin: 0 auto;
     max-width: 700px;
     // background-color: $primaryColor;
+    height: 100%;
 }
 
 body {
@@ -32,32 +33,47 @@ div.qrcode {
 }
 
 div.pergunta {
+    --radius: 30px;
     background-color: #FFFFFF;
-    border-radius: 30px 30px 0 0;
-    transform: translateY(-40px);
     padding: 5vw;
     min-height: 300px;
     position: relative;
-    overflow: hidden;
+    flex-grow: 1;
+    
+    &:before {
+        content: "";
+        border-radius: var(--radius) var(--radius) 0 0;
+        transform: translateY(calc(var(--radius) * -1));
+        height: var(--radius);
+        background-color: inherit;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
 
     .overlay {
-        background-color: black;
+        color: #FFFFFF;
+        background-color: #000000AA;
         position: absolute;
         inset: 0;
+        margin: .25em;
+        border-radius: var(--radius);
+        padding: 1em;
     }
 
     h1 {
-        font-size: 8vw;
+        font-size: 2em;
     }
 
     .alternativas {
         label {
             display: block;
-            font-size: 5vw;
+            font-size: 1em;
             padding: 1vw;
             transition: .3s;
 
-            input {
+            input[type="radio"] {
                 display: none;
             }
 
